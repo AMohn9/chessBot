@@ -1,18 +1,30 @@
 package amohn;
 
-import amohn.ImageProcessing.BoardImageAnalyzer;
+import amohn.imageprocessing.BoardImageAnalyzer;
+import amohn.chess.evaluation.BoardScorer;
+import com.github.bhlangonijr.chesslib.Board;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class App {
 
     public static void main(String[] args ) {
+        computerVsComputer();
+//        scoreImage();
+    }
+
+    private static void computerVsComputer() {
+        Board board = new Board();
+        log.info("Moves: " + board.legalMoves());
+    }
+
+    private static void scoreImage() {
         BoardImageAnalyzer boardImageAnalyzer = new BoardImageAnalyzer();
 
-        for (int i = 0; i < 10; i++) {
-            boardImageAnalyzer.processBoardImage();
-        }
-
         long millis = System.currentTimeMillis();
-        boardImageAnalyzer.processBoardImage();
-        System.out.println("Board process millis: " + (System.currentTimeMillis() - millis));
+        Board board = boardImageAnalyzer.getBoardFromImage();
+        log.debug("Board process millis: " + (System.currentTimeMillis() - millis));
+
+        log.info("Board score: " + BoardScorer.scoreBoard(board));
     }
 }

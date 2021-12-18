@@ -1,7 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71466f47-cb56-42f6-8d73-89748b24a723" name="Default Changelist" comment="" />
+    <list default="true" id="71466f47-cb56-42f6-8d73-89748b24a723" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/evaluation/BoardScorer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/alphabeta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/1/4/143f49afeddfc48e513414f91e3451677b0aadea" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/e/3ecc49f3832ef06a35405240ef56dcd0174e4a90" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/3/e/3ecc49f3832ef06a35405240ef56dcd0174e4a90" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/9/7993f2e83b34f76bcaffe268284cab2bd2da87e6" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/7/9/7993f2e83b34f76bcaffe268284cab2bd2da87e6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/5/b5f31edf2488387e224f6e23a47eb742608f3d19" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/b/5/b5f31edf2488387e224f6e23a47eb742608f3d19" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/8/d80211fd47262eb2b27f259241b4de57a521e37e" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/d/8/d80211fd47262eb2b27f259241b4de57a521e37e" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/e/9/e95f635f83be5acaf35dcf3d6b75d7c9b35fae86" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/processed_screenshot.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/out/processed_screenshot.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/ImageProcessing/BoardImageAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/imageprocessing/BoardImageAnalyzer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/ImageProcessing/ImageUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/imageprocessing/ImageUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/ImageProcessing/PieceTemplateCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/imageprocessing/PieceTemplateCreator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/chess/BoardScorer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BISHOP.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/KING.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/KNIGHT.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/PAWN.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/QUEEN.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/ROOK.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/amohn/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/amohn/App.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/BoardImageAnalyzer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/BoardImageAnalyzer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/ImageUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/ImageUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/PieceTemplateCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/PieceTemplateCreator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/amohn/chess/PieceOld$PieceType.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/amohn/chess/PieceOld.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/example_screenshot.jpg" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,11 +52,16 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="VSOpXgKg" />
   </component>
   <component name="ProjectId" id="2247xUxCeHjosGS259nnAv6kH28" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -31,12 +69,12 @@
     <property name="settings.editor.selected.configurable" value="com.intellij.jarRepository.settings.RemoteRepositoriesConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/com/github/bhlangonijr/chesslib" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/main/resources" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -56,7 +94,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.BoardImageAnalyzer">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="amohn.App" />
       <module name="chessbot" />
@@ -106,8 +144,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BoardImageAnalyzer" />
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.BoardImageAnalyzer" />
         <item itemvalue="Application.PieceTemplateCreator" />
       </list>
     </recent_temporary>
@@ -124,5 +162,18 @@
       <updated>1639085251792</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

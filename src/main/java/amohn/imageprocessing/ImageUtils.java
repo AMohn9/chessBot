@@ -1,4 +1,4 @@
-package amohn.ImageProcessing;
+package amohn.imageprocessing;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -73,7 +73,7 @@ class ImageUtils {
     Mat detectedEdges = new Mat();
 
     Imgproc.cvtColor(img, grayImage, Imgproc.COLOR_BGR2GRAY);
-    Imgproc.blur(grayImage, detectedEdges, new Size(2, 2));
+    Imgproc.blur(grayImage, detectedEdges, new Size(3, 3));
 
     int threshold = 3;
     Imgproc.Canny(detectedEdges, detectedEdges, threshold, threshold * 3);

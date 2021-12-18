@@ -1,6 +1,6 @@
-package amohn.ImageProcessing;
+package amohn.imageprocessing;
 
-import amohn.chess.PieceOld;
+import com.github.bhlangonijr.chesslib.PieceType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +24,10 @@ public class PieceTemplateCreator {
 
     int squareSize = (int) processedScreenshot.size().height / 8;
 
-    Map<PieceOld.PieceType, List<Integer>> initPieceLocations = getInitPieceLocations();
+    Map<PieceType, List<Integer>> initPieceLocations = getInitPieceLocations();
 
     // Extract the image of the cell for each piece type
-    for (PieceOld.PieceType pieceType : PieceOld.PieceType.values()) {
+    for (PieceType pieceType : PieceType.values()) {
       List<Integer> initLocation = initPieceLocations.get(pieceType);
       Rect rectCrop = new Rect(squareSize * initLocation.get(0), squareSize * initLocation.get(1), squareSize, squareSize);
       Mat cellImage = new Mat(processedScreenshot, rectCrop);
@@ -38,15 +38,15 @@ public class PieceTemplateCreator {
     }
   }
 
-  private static Map<PieceOld.PieceType, List<Integer>> getInitPieceLocations() {
+  private static Map<PieceType, List<Integer>> getInitPieceLocations() {
     // An initial place for each piece type
-    Map<PieceOld.PieceType, List<Integer>> ret = new HashMap<>();
-    ret.put(PieceOld.PieceType.ROOK, List.of(0, 0));
-    ret.put(PieceOld.PieceType.KNIGHT, List.of(1, 0));
-    ret.put(PieceOld.PieceType.BISHOP, List.of(2, 0));
-    ret.put(PieceOld.PieceType.QUEEN, List.of(3, 0));
-    ret.put(PieceOld.PieceType.KING, List.of(4, 0));
-    ret.put(PieceOld.PieceType.PAWN, List.of(0, 1));
+    Map<PieceType, List<Integer>> ret = new HashMap<>();
+    ret.put(PieceType.ROOK, List.of(0, 0));
+    ret.put(PieceType.KNIGHT, List.of(1, 0));
+    ret.put(PieceType.BISHOP, List.of(2, 0));
+    ret.put(PieceType.QUEEN, List.of(3, 0));
+    ret.put(PieceType.KING, List.of(4, 0));
+    ret.put(PieceType.PAWN, List.of(0, 1));
     return ret;
   }
 }

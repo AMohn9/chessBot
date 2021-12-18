@@ -1,4 +1,4 @@
-package amohn.ImageProcessing;
+package amohn.imageprocessing;
 
 import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.Piece;
@@ -7,6 +7,7 @@ import com.github.bhlangonijr.chesslib.Side;
 import com.github.bhlangonijr.chesslib.move.Move;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import nu.pattern.OpenCV;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -15,6 +16,7 @@ import org.opencv.core.Rect;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
+@Slf4j
 public class BoardImageAnalyzer {
 
   private Map<PieceType, Mat> pieceTemplates;
@@ -22,15 +24,15 @@ public class BoardImageAnalyzer {
   private static final boolean SCREENHOT_FROM_FILE = true;
 
   public static void main(String[] args ) {
-    String fen = new BoardImageAnalyzer().processBoardImage();
-    System.out.println(fen);
+    String fen = new BoardImageAnalyzer().getFenFromImage();
+    log.debug(fen);
     Board board = new Board();
     board.loadFromFen(fen);
 
-    System.out.println(String.format("There are %d legal moves", board.legalMoves().size()));
+    log.debug(String.format("There are %d legal moves", board.legalMoves().size()));
 
     for (Move move : board.legalMoves()) {
-      System.out.println(move);
+      log.debug(String.valueOf(move));
     }
   }
 
@@ -39,7 +41,13 @@ public class BoardImageAnalyzer {
     pieceTemplates = getPieceTemplates();
   }
 
-  public String processBoardImage() {
+  public Board getBoardFromImage() {
+    Board board = new Board();
+    board.loadFromFen(getFenFromImage());
+    return board;
+  }
+
+  private String getFenFromImage() {
     Mat screenshot = getScreenshot();
     Mat processedScreenshot = ImageUtils.findEdges(screenshot);
     ImageUtils.saveImage(processedScreenshot, "out/processed_screenshot.jpg");
@@ -55,19 +63,16 @@ public class BoardImageAnalyzer {
         cellImage = cellImage.submat(5, cellImage.rows() - 5, 5, cellImage.cols() - 5);
 
         if (Core.countNonZero(cellImage) < 20) {
-          System.out.println(String.format("Place %d %d probably empty", x, y));
+          log.debug(String.format("Place %d %d probably empty", x, y));
           sinceLastPiece++;
           continue;
         }
 
         PieceType pieceType = extractPieceType(cellImage, pieceTemplates);
         Side side = extractPieceColor(screenshot, squareSize, x, y);
-
-        System.out.println(side);
-        System.out.println(pieceType);
         Piece piece = Piece.make(side, pieceType);
 
-        System.out.println(String.format("Place %d %d probably contains %s", x, y, piece));
+        log.debug(String.format("Place %d %d probably contains %s", x, y, piece));
 
         if (sinceLastPiece > 0) {
           fen += sinceLastPiece;
@@ -78,7 +83,6 @@ public class BoardImageAnalyzer {
       if (y < 8) {
         fen += "/";
       }
-      System.out.println();
     }
 //    fen += " w KQkq - 0 0";
     fen += " w kq - 0 0";
@@ -87,8 +91,7 @@ public class BoardImageAnalyzer {
 
   private static Mat getScreenshot() {
     if (SCREENHOT_FROM_FILE) {
-      Mat img = Imgcodecs.imread("/Users/amohn/codebase/chessbot/src/main/resources/example_screenshot.jpg");
-      return img;
+      return Imgcodecs.imread("/Users/amohn/codebase/chessbot/src/main/resources/example_screenshot.jpg");
     } else {
       Mat screenshot = ImageUtils.getScreenshot();
       ImageUtils.saveImage(screenshot, "out/screenshot.jpg");
