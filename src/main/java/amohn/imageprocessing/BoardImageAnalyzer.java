@@ -1,12 +1,15 @@
 package amohn.imageprocessing;
 
-import com.github.bhlangonijr.chesslib.Board;
-import com.github.bhlangonijr.chesslib.Piece;
-import com.github.bhlangonijr.chesslib.PieceType;
-import com.github.bhlangonijr.chesslib.Side;
+import com.github.bhlangonijr.chesslib.*;
 import com.github.bhlangonijr.chesslib.move.Move;
+
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import nu.pattern.OpenCV;
 import org.opencv.core.Core;
@@ -15,13 +18,18 @@ import org.opencv.core.MatOfDouble;
 import org.opencv.core.Rect;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 
 @Slf4j
 public class BoardImageAnalyzer {
 
-  private Map<PieceType, Mat> pieceTemplates;
+  private final Map<PieceType, Mat> pieceTemplates;
 
   private static final boolean SCREENHOT_FROM_FILE = true;
+
+  private static final ResourceLoader resourceLoader = new DefaultResourceLoader();
 
   public static void main(String[] args ) {
     String fen = new BoardImageAnalyzer().getFenFromImage();
@@ -37,13 +45,15 @@ public class BoardImageAnalyzer {
   }
 
   public BoardImageAnalyzer() {
-    OpenCV.loadShared();
+    OpenCV.loadLocally();
     pieceTemplates = getPieceTemplates();
   }
 
   public Board getBoardFromImage() {
     Board board = new Board();
-    board.loadFromFen(getFenFromImage());
+    String fen = getFenFromImage();
+    log.debug("FEN: " + fen);
+    board.loadFromFen(fen);
     return board;
   }
 
@@ -54,7 +64,7 @@ public class BoardImageAnalyzer {
 
     int squareSize = (int) processedScreenshot.size().height / 8;
 
-    String fen = "";
+    StringBuilder fen = new StringBuilder();
     for (int y = 0; y < 8; y++) {
       int sinceLastPiece = 0;
       for (int x = 0; x < 8; x++) {
@@ -75,23 +85,29 @@ public class BoardImageAnalyzer {
         log.debug(String.format("Place %d %d probably contains %s", x, y, piece));
 
         if (sinceLastPiece > 0) {
-          fen += sinceLastPiece;
+          fen.append(sinceLastPiece);
           sinceLastPiece = 0;
         }
-        fen += piece.getFenSymbol();
+        fen.append(piece.getFenSymbol());
       }
-      if (y < 8) {
-        fen += "/";
+      if (sinceLastPiece > 0) {
+        fen.append(sinceLastPiece);
+      }
+      if (y < 7) {
+        fen.append("/");
       }
     }
 //    fen += " w KQkq - 0 0";
-    fen += " w kq - 0 0";
-    return fen;
+    fen.append(" w - - 0 0");
+    return fen.toString();
   }
 
+  @SneakyThrows
   private static Mat getScreenshot() {
     if (SCREENHOT_FROM_FILE) {
-      return Imgcodecs.imread("/Users/amohn/codebase/chessbot/src/main/resources/example_screenshot.jpg");
+      Resource resource = resourceLoader.getResource("classpath:example_screenshot.jpg");
+      String imagePath = Paths.get(resource.getURI()).toFile().getAbsolutePath();
+      return Imgcodecs.imread(imagePath);
     } else {
       Mat screenshot = ImageUtils.getScreenshot();
       ImageUtils.saveImage(screenshot, "out/screenshot.jpg");
@@ -99,13 +115,17 @@ public class BoardImageAnalyzer {
     }
   }
 
+  @SneakyThrows
   private static Map<PieceType, Mat> getPieceTemplates() {
     Map<PieceType, Mat> ret = new HashMap<>();
 
     for (PieceType pieceType : PieceType.values()) {
       if (pieceType.name().equals("NONE")) continue;
 
-      Mat img = Imgcodecs.imread("/Users/amohn/codebase/chessbot/src/main/resources/" + pieceType.name() + ".jpg");
+      Resource resource = resourceLoader.getResource("classpath:" + pieceType.name() + ".jpg");
+      String imagePath = Paths.get(resource.getURI()).toFile().getAbsolutePath();
+
+      Mat img = Imgcodecs.imread(imagePath);
       Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2GRAY);
       ret.put(pieceType, img);
     }
