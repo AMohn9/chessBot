@@ -1,6 +1,5 @@
 package amohn.chess.search;
 
-import amohn.chess.BoardMoveCache;
 import amohn.chess.evaluation.BoardScorer;
 import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.Side;
@@ -8,26 +7,27 @@ import com.github.bhlangonijr.chesslib.move.Move;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 @Slf4j
-public class AlphaBeta implements SearchEngine {
+public class AlphaBetaNoTree {
+
     private final Board board;
 
     @Getter
-    private final Node root;
+    private final MiniNode root;
 
     @Getter
     private int evaluatedPositions = 0;
 
     @Getter
-    public Set<String> seenPositions = new HashSet<>();
+//    public Map<String, Double> seenPositions = new HashMap<>();
+    public Map<Long, Double> seenPositions = new HashMap<>();
 
-    public AlphaBeta(Board board) {
+    public AlphaBetaNoTree(Board board) {
         this.board = board;
-        this.root = new Node(board, null);
-        root.setScore(BoardScorer.scoreBoard(board));
+        this.root = new MiniNode(null, BoardScorer.scoreBoard(board));
     }
 
     public void constructTree(int depth) {
@@ -38,7 +38,7 @@ public class AlphaBeta implements SearchEngine {
         constructTreeKeepCapturing(root, minDepth, maxDepth, Double.MIN_VALUE, Double.MAX_VALUE);
     }
 
-    private double constructTree(Node node, int remainingDepth, double alpha, double beta) {
+    private double constructTree(MiniNode node, int remainingDepth, double alpha, double beta) {
         if (remainingDepth == 0) {
             double nodeScore = BoardScorer.scoreBoard(board);
             node.setScore(nodeScore);
@@ -47,6 +47,7 @@ public class AlphaBeta implements SearchEngine {
 
         Side sideToPlay = board.getSideToMove();
 
+        MiniNode bestChild = null;
         double value = sideToPlay.equals(Side.WHITE) ? Double.MIN_VALUE : Double.MAX_VALUE;
 
         for (Move move : Utils.getOrderedMoves(board)) {
@@ -54,14 +55,22 @@ public class AlphaBeta implements SearchEngine {
             evaluatedPositions++;
 
             board.doMove(move, false);
-            seenPositions.add(board.getFen().split(" " )[0]);
 
-            Node newNode = new Node(board, move);
-            node.addChild(move, newNode);
-            double newNodeScore = constructTree(newNode, remainingDepth - 1, alpha, beta);
+            MiniNode newNode = new MiniNode(move);
+            double newNodeScore;
+            long key = board.getZobristKey();
+            if (seenPositions.containsKey(key)) {
+                newNodeScore = seenPositions.get(key);
+            } else {
+                newNodeScore = constructTree(newNode, remainingDepth - 1, alpha, beta);
+                seenPositions.put(key, newNodeScore);
+            }
 
             if (sideToPlay.equals(Side.WHITE)) {
-                value = Math.max(value, newNodeScore);
+                if (newNodeScore > value) {
+                    bestChild = newNode;
+                    value = newNodeScore;
+                }
 
                 if (value >= beta) {
                     board.undoMove();
@@ -69,7 +78,10 @@ public class AlphaBeta implements SearchEngine {
                 }
                 alpha = Math.max(alpha, value);
             } else {
-                value = Math.min(value, newNodeScore);
+                if (newNodeScore < value) {
+                    bestChild = newNode;
+                    value = newNodeScore;
+                }
 
                 if (value <= alpha) {
                     board.undoMove();
@@ -82,10 +94,11 @@ public class AlphaBeta implements SearchEngine {
         }
 
         node.setScore(value);
+        node.setBestChild(bestChild);
         return value;
     }
 
-    private double constructTreeKeepCapturing(Node node, int remainingDepth, int remainingMaxDepth, double alpha, double beta) {
+    private double constructTreeKeepCapturing(MiniNode node, int remainingDepth, int remainingMaxDepth, double alpha, double beta) {
         if (remainingMaxDepth == 0) {
             double nodeScore = BoardScorer.scoreBoard(board);
             node.setScore(nodeScore);
@@ -94,9 +107,11 @@ public class AlphaBeta implements SearchEngine {
 
         Side sideToPlay = board.getSideToMove();
 
+        MiniNode bestChild = null;
         double value = sideToPlay.equals(Side.WHITE) ? Double.MIN_VALUE : Double.MAX_VALUE;
 
-        for (Move move : BoardMoveCache.getMovesForBoard(board)) {
+//        for (Move move : Utils.getOrderedMoves(board)) {
+        for (Move move : Utils.getOrderedMoves(board)) {
             if (remainingDepth <= 0 && !Utils.isCapture(board, move)) {
                 continue;
             }
@@ -105,12 +120,22 @@ public class AlphaBeta implements SearchEngine {
 
             board.doMove(move, false);
 
-            Node newNode = new Node(board, move);
-            node.addChild(move, newNode);
-            double newNodeScore = constructTreeKeepCapturing(newNode, remainingDepth - 1, remainingMaxDepth - 1, alpha, beta);
+            MiniNode newNode = new MiniNode(move);
+            double newNodeScore;
+//            newNodeScore = constructTreeKeepCapturing(newNode, remainingDepth - 1, remainingMaxDepth - 1, alpha, beta);
+            long key = board.getZobristKey();
+            if (seenPositions.containsKey(key)) {
+                newNodeScore = seenPositions.get(key);
+            } else {
+                newNodeScore = constructTreeKeepCapturing(newNode, remainingDepth - 1, remainingMaxDepth - 1, alpha, beta);
+                seenPositions.put(key, newNodeScore);
+            }
 
             if (sideToPlay.equals(Side.WHITE)) {
-                value = Math.max(value, newNodeScore);
+                if (newNodeScore > value) {
+                    bestChild = newNode;
+                    value = newNodeScore;
+                }
 
                 if (value >= beta) {
                     board.undoMove();
@@ -118,7 +143,10 @@ public class AlphaBeta implements SearchEngine {
                 }
                 alpha = Math.max(alpha, value);
             } else {
-                value = Math.min(value, newNodeScore);
+                if (newNodeScore < value) {
+                    bestChild = newNode;
+                    value = newNodeScore;
+                }
 
                 if (value <= alpha) {
                     board.undoMove();
@@ -130,8 +158,9 @@ public class AlphaBeta implements SearchEngine {
             board.undoMove();
         }
 
-        if (node.hasChildren()) {
+        if (bestChild != null) {
             node.setScore(value);
+            node.setBestChild(bestChild);
             return value;
         } else {
             double nodeScore = BoardScorer.scoreBoard(board);

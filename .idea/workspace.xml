@@ -5,35 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="71466f47-cb56-42f6-8d73-89748b24a723" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/BoardMoveCache.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/evaluation/PositionTables.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/AlphaBeta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/MiniMax.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/Node.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/SearchEngine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/Tree.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/AlphaBetaNoTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/MiniNode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/amohn/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/amohn/chess/evaluation/BoardScorer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/evaluation/BoardScorer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/chess/search/alphabeta.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/imageprocessing/BoardImageAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/imageprocessing/BoardImageAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/log4j.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/chessbot.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/amohn/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/amohn/App.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/BoardImageAnalyzer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/BoardImageAnalyzer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/ImageUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/ImageUtils.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/PieceTemplateCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/amohn/ImageProcessing/PieceTemplateCreator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/log4j.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/amohn/AppTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/amohn/AppTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/chess/search/MiniMax.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/MiniMax.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/chess/search/SearchEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/SearchEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/amohn/chess/search/alphabeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/amohn/chess/search/alphabeta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,8 +27,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>

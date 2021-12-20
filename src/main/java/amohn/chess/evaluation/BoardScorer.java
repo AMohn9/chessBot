@@ -1,6 +1,5 @@
 package amohn.chess.evaluation;
 
-import amohn.chess.BoardMoveCache;
 import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.Piece;
 import com.github.bhlangonijr.chesslib.PieceType;
@@ -130,16 +129,10 @@ public class BoardScorer {
 
   private static int getMobilityScore(Board board) {
 
-    int currentSideMoveCount = BoardMoveCache.getMovesForBoard(board).size();
-    if (log.isDebugEnabled()) {
-      log.debug("This side moves: " + BoardMoveCache.getMovesForBoard(board));
-    }
+    int currentSideMoveCount = board.legalMoves().size();
     board.doNullMove();
 
-    int otherSideMoveCount = BoardMoveCache.getMovesForBoard(board).size();
-    if (log.isDebugEnabled()) {
-      log.debug("Other side moves: " + BoardMoveCache.getMovesForBoard(board));
-    }
+    int otherSideMoveCount = board.legalMoves().size();
     board.undoMove();
 
     int countDifference = currentSideMoveCount - otherSideMoveCount;
